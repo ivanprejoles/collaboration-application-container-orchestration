@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="css/inside.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Chat App</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.0.3/pako.min.js"></script>
+  <script>
+    const userID = '<%= data.userid%>';
+    const userName = '<%= data.username%>';
+  </script>
+  <script defer src="js/inside.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="left-menu">
+      <span class="arrow-span arrow-active">&gt;</span>
+      <nav>
+        <ul id="roomList">
+          <li><button class="addButton">Add New Room</button></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="content">
+
+      <div class="message-part">
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login and Register</title>
+  <link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="login-form" action="/login" method="POST" autocomplete="on">
+    <input type="text" name="username" placeholder="Username">
+    <input type="text" name="password" placeholder="Password" autocomplete="off">
+    <button type="submit">Login</button>
+  </form>
+  <h1>Register</h1>
+  <form id="register-form" action="/register" method="POST" autocomplete="on">
+    <input type="text" name="username" placeholder="Username">
+    <input type="password" name="password" placeholder="Password" autocomplete="off">
+    <button type="submit">Register</button>
+  </form>
+</body>
+<script defer src="js/login.js"></script>
+</html>

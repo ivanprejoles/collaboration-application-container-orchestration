@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+    <title>Login Page</title>
+</head>
+<body>
+    <button onclick="buttonClick()">
+        click
+    </button>
+    <script>
+        let name = prompt('name')
+        fetch('/send-user', {
+            method:'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({data:'user'})
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        });
+        fetch('/message/send-message', {
+            method:'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({data:'message'})
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        });
+        userSocket = io({path:'/user-socket/'});
+        userSocket.on('broadcast-user', (message) => {
+            console.log(message);
+        })
+        userSocket.on('room-user', (message) => {
+            console.log(message);
+        })
+        userSocket.on('new-user', (message) => {
+            console.log(message);
+        })
+        userSocket.on('user-connected', (message) => {
+            console.log(message);
+        })
+
+        
+        messageSocket = io({path:'/message-socket/'});
+        messageSocket.on('broadcast-message', (message) => {
+            console.log(message);
+        })
+        messageSocket.on('room-message', (message) => {
+            console.log(message);
+        })
+        messageSocket.on('new-message', (message) => {
+            console.log(message);
+        })
+        messageSocket.on('message-connected', (message) => {
+            console.log(message);
+        })
+
+        function emitting(space, channel, message){
+            if(space == 'user'){
+                userSocket.emit(channel, message)
+            }else{
+                console.log('message')
+                messageSocket.emit(channel, message)
+            }
+        }
+
+        function buttonClick() {
+            fetch('/click-user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                }
+            })
+            fetch('/message/click-message', {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                }
+            })
+            messageSocket.emit('new-message', `button message ${name}`)
+            userSocket.emit('new-user', `button user ${name}`)
+        }
+        console.log(userSocket)
+        console.log(messageSocket)
+        emitting('message','new-message', 'a');
+        emitting('user','new-user', 'abcd');
+        emitting('message','broadcast-message', 'aa');
+        emitting('user','broadcast-user', 'abc');
+    </script>
+</body>
+</html>
